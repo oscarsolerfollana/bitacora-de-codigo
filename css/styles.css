@@ -1,0 +1,1410 @@
+/* ============================================================
+   styles.css — Bitácora de Código
+
+   Índice:
+   1. Colores y variables (modo claro y oscuro)
+   2. Estilos generales
+   3. Botones y formularios
+   4. Cabecera y menú
+   5. Portada
+   6. Listado de entradas y barra lateral
+   7. Vista de una entrada y comentarios
+   8. Ventana de nueva entrada, avisos y botón de subir
+   9. Páginas "Sobre mí" y "Contacto"
+   10. Pie de página
+   11. Móvil (responsive)
+   ============================================================ */
+
+
+/* ---------- 1. Colores y variables ---------- */
+/* Definimos los colores una sola vez. Para el modo oscuro solo
+   cambiamos el valor de estas variables. */
+
+:root {
+  --fondo: #faf7f2;
+  --superficie: #ffffff;
+  --superficie-2: #f3eee6;
+  --texto: #1f1b16;
+  --texto-suave: #5f574d;
+  --borde: #e5ddd1;
+  --acento: #c2410c;
+  --acento-hover: #9a3412;
+  --acento-suave: #fde8dc;
+  --texto-boton: #ffffff;
+  --error: #b91c1c;
+  --ok: #15803d;
+  --ok-suave: #e7f6ec;
+  --puntos: #e2d9cc;
+  --sombra: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Un color por categoría */
+  --cat-html: #c2410c;
+  --cat-css: #1d4ed8;
+  --cat-js: #a16207;
+  --cat-tools: #15803d;
+  --cat-practices: #7e22ce;
+
+  --fuente: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --fuente-titulos: Georgia, "Times New Roman", serif;
+  --fuente-codigo: Consolas, "Courier New", monospace;
+  --radio: 14px;
+}
+
+[data-theme="oscuro"] {
+  --fondo: #16130f;
+  --superficie: #1f1b16;
+  --superficie-2: #29241d;
+  --texto: #f2ece3;
+  --texto-suave: #b4aa9c;
+  --borde: #3a332a;
+  --acento: #fb923c;
+  --acento-hover: #fdba74;
+  --acento-suave: #3b2415;
+  --texto-boton: #1a0f06;
+  --error: #f87171;
+  --ok: #4ade80;
+  --ok-suave: #16281c;
+  --puntos: #2c261f;
+  --sombra: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --cat-html: #fb923c;
+  --cat-css: #60a5fa;
+  --cat-js: #facc15;
+  --cat-tools: #4ade80;
+  --cat-practices: #c084fc;
+}
+
+
+/* ---------- 2. Estilos generales ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  line-height: 1.6;
+  color: var(--texto);
+  background-color: var(--fondo);
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--acento);
+}
+
+a:hover {
+  color: var(--acento-hover);
+}
+
+code, pre {
+  font-family: var(--fuente-codigo);
+  font-size: 0.9em;
+}
+
+/* Contenedor centrado con un ancho máximo */
+.contenedor {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.contenedor--estrecho {
+  max-width: 760px;
+}
+
+/* Texto oculto a la vista pero que leen los lectores de pantalla */
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* Enlace "Saltar al contenido": solo aparece al usar el tabulador */
+.saltar {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  padding: 10px 16px;
+  background: var(--acento);
+  color: var(--texto-boton);
+  border-radius: 8px;
+  z-index: 100;
+}
+
+.saltar:focus {
+  top: 16px;
+}
+
+/* Contorno visible al navegar con el teclado */
+:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 2px;
+}
+
+
+/* ---------- 3. Botones y formularios ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn--primario {
+  background: var(--acento);
+  color: var(--texto-boton);
+}
+
+.btn--primario:hover {
+  background: var(--acento-hover);
+  color: var(--texto-boton);
+}
+
+.btn--secundario,
+.btn--megusta {
+  background: var(--superficie);
+  color: var(--texto);
+  border-color: var(--borde);
+}
+
+.btn--secundario:hover,
+.btn--megusta:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+/* "Me gusta" marcado */
+.btn--megusta.activo {
+  background: var(--acento-suave);
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+.btn--peligro {
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.btn--peligro:hover {
+  background: var(--error);
+  color: var(--superficie);
+}
+
+/* Botones redondos con un icono (menú, tema, cerrar) */
+.btn-icono {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--borde);
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.btn-icono:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+/* Botón que parece un enlace */
+.enlace {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--acento);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.enlace--pequeno {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+.enlace-flecha {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.select {
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+/* Campos de formulario */
+.formulario {
+  display: grid;
+  gap: 16px;
+}
+
+.formulario__ayuda {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+.campo {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.campo label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 0.92rem;
+}
+
+.campo input,
+.campo textarea,
+.campo select {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--texto);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+
+/* Campo con error (la clase la pone JavaScript) */
+.campo .error {
+  border-color: var(--error);
+  background: var(--acento-suave);
+}
+
+.campo__error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--error);
+}
+
+.campo__error:empty {
+  display: none;
+}
+
+.campo__ayuda {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+/* Dos campos uno al lado del otro */
+.campo-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contador {
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.campo label.casilla {
+  justify-content: flex-start;
+  gap: 10px;
+  font-weight: normal;
+}
+
+.casilla input {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* ---------- 4. Cabecera y menú ---------- */
+
+.cabecera {
+  position: sticky; /* se queda pegada arriba al bajar */
+  top: 0;
+  z-index: 20;
+  background: var(--fondo);
+  border-bottom: 1px solid var(--borde);
+}
+
+.cabecera__fila {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 68px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--texto);
+  text-decoration: none;
+  font-family: var(--fuente-titulos);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.logo:hover {
+  color: var(--texto);
+}
+
+.logo em {
+  font-weight: normal;
+  color: var(--texto-suave);
+}
+
+.logo__marca {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 9px;
+  background: var(--acento);
+  color: var(--texto-boton);
+  font-family: var(--fuente-codigo);
+  font-size: 0.85rem;
+}
+
+.menu {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--texto-suave);
+  text-decoration: none;
+}
+
+.menu a:hover,
+.menu a.actual {
+  color: var(--texto);
+  background: var(--superficie-2);
+}
+
+/* El botón del menú solo se ve en el móvil (ver apartado 11) */
+.btn-menu {
+  display: none;
+}
+
+.cabecera__acciones {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icono de luna o de sol según el tema */
+.icono-sol {
+  display: none;
+}
+
+[data-theme="oscuro"] .icono-sol {
+  display: inline;
+}
+
+[data-theme="oscuro"] .icono-luna {
+  display: none;
+}
+
+/* Barra de progreso de lectura (JavaScript cambia su anchura) */
+.progreso-lectura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--acento);
+  z-index: 30;
+}
+
+
+/* ---------- 5. Portada ---------- */
+
+.portada {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--borde);
+  /* Fondo de puntitos */
+  background-image: radial-gradient(var(--puntos) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.portada__rejilla {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.portada__antetitulo {
+  margin: 0 0 12px;
+  font-family: var(--fuente-codigo);
+  font-size: 0.85rem;
+  color: var(--acento);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.portada__titulo {
+  margin: 0;
+  font-size: 3.4rem;
+}
+
+/* Subrayado tipo rotulador */
+.subrayado {
+  background: linear-gradient(transparent 62%, var(--acento-suave) 62%);
+}
+
+.portada__texto {
+  max-width: 560px;
+  margin: 20px 0 32px;
+  font-size: 1.15rem;
+  color: var(--texto-suave);
+}
+
+.portada__datos {
+  display: flex;
+  gap: 40px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.portada__datos strong {
+  display: block;
+  font-family: var(--fuente-titulos);
+  font-size: 2rem;
+  color: var(--texto);
+}
+
+/* Ventana de código decorativa */
+.ventana-codigo {
+  border-radius: var(--radio);
+  background: #1c1915;
+  color: #f4ede2;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  transform: rotate(1.5deg);
+}
+
+.ventana-codigo__barra {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #2f2a23;
+}
+
+.ventana-codigo__barra i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #f87171;
+}
+
+.ventana-codigo__barra i:nth-child(2) {
+  background: #facc15;
+}
+
+.ventana-codigo__barra i:nth-child(3) {
+  background: #4ade80;
+}
+
+.ventana-codigo pre {
+  margin: 0;
+  padding: 18px 20px 22px;
+  line-height: 1.7;
+}
+
+.ventana-codigo .k { color: #fb923c; }
+.ventana-codigo .s { color: #a3e635; }
+.ventana-codigo .c { color: #8b8174; font-style: italic; }
+
+/* Cursor que parpadea */
+.ventana-codigo .cursor {
+  display: inline-block;
+  width: 9px;
+  height: 18px;
+  vertical-align: middle;
+  background: #fb923c;
+  animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+  50% { opacity: 0; }
+}
+
+
+/* ---------- 6. Listado de entradas y barra lateral ---------- */
+
+/* Contenido principal + barra lateral de 300px */
+.disposicion {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 40px;
+  align-items: start;
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+.herramientas {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.buscador input {
+  width: 100%;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto);
+  box-shadow: var(--sombra);
+}
+
+.buscador input:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+
+.herramientas__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Botones de categoría */
+.chip {
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  background: var(--superficie);
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+
+.chip:hover {
+  color: var(--texto);
+  border-color: var(--texto-suave);
+}
+
+.chip.activo {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: var(--fondo);
+}
+
+.resultado {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+/* Rejilla de tarjetas: tantas columnas como quepan de mínimo 260px */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  border-color: var(--acento);
+}
+
+.tarjeta__enlace {
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.tarjeta__enlace:hover {
+  color: inherit;
+}
+
+.tarjeta__enlace:hover .tarjeta__titulo {
+  color: var(--acento);
+}
+
+.tarjeta__cuerpo {
+  padding: 18px 20px 8px;
+}
+
+.tarjeta__titulo {
+  margin: 6px 0 8px;
+  font-size: 1.25rem;
+}
+
+.tarjeta__resumen {
+  margin: 0;
+  font-size: 0.93rem;
+  color: var(--texto-suave);
+}
+
+.tarjeta__pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 14px 20px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  border-top: 1px dashed var(--borde);
+}
+
+/* Portada de colores de cada tarjeta (no usamos imágenes) */
+.portada-tarjeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+
+.portada-tarjeta__glifo {
+  font-family: var(--fuente-codigo);
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.portada-tarjeta--grande {
+  height: 240px;
+  margin: 32px 0;
+  border-radius: var(--radio);
+}
+
+.portada-tarjeta--grande .portada-tarjeta__glifo {
+  font-size: 5rem;
+}
+
+/* Colores de cada categoría. Usamos rgba (color con transparencia)
+   para que quede bien tanto en modo claro como en oscuro. */
+.portada-tarjeta--html {
+  background: linear-gradient(135deg, rgba(194, 65, 12, 0.08), rgba(194, 65, 12, 0.3));
+  color: var(--cat-html);
+}
+
+.portada-tarjeta--css {
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.08), rgba(29, 78, 216, 0.3));
+  color: var(--cat-css);
+}
+
+.portada-tarjeta--js {
+  background: linear-gradient(135deg, rgba(161, 98, 7, 0.08), rgba(161, 98, 7, 0.3));
+  color: var(--cat-js);
+}
+
+.portada-tarjeta--tools {
+  background: linear-gradient(135deg, rgba(21, 128, 61, 0.08), rgba(21, 128, 61, 0.3));
+  color: var(--cat-tools);
+}
+
+.portada-tarjeta--practices {
+  background: linear-gradient(135deg, rgba(126, 34, 206, 0.08), rgba(126, 34, 206, 0.3));
+  color: var(--cat-practices);
+}
+
+/* Nombre de la categoría encima del título */
+.etiqueta-cat {
+  margin: 0;
+  font-family: var(--fuente-codigo);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.etiqueta-cat--html { color: var(--cat-html); }
+.etiqueta-cat--css { color: var(--cat-css); }
+.etiqueta-cat--js { color: var(--cat-js); }
+.etiqueta-cat--tools { color: var(--cat-tools); }
+.etiqueta-cat--practices { color: var(--cat-practices); }
+
+/* Mensaje cuando no hay resultados */
+.vacio {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--texto-suave);
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+}
+
+.vacio__titulo {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+  color: var(--texto);
+}
+
+/* Barra lateral */
+.lateral {
+  display: grid;
+  gap: 20px;
+  position: sticky;
+  top: 90px;
+}
+
+.tarjeta-lateral {
+  padding: 20px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.tarjeta-lateral p {
+  margin: 6px 0 12px;
+  font-size: 0.92rem;
+  color: var(--texto-suave);
+}
+
+.tarjeta-lateral__titulo {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.autor {
+  display: flex;
+  gap: 16px;
+}
+
+.autor__avatar {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  text-align: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--acento), var(--cat-practices));
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.populares {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.populares li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.populares li:last-child {
+  border-bottom: none;
+}
+
+.populares a {
+  display: block;
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.93rem;
+}
+
+.populares a:hover {
+  color: var(--acento);
+}
+
+.populares span {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+
+/* ---------- 7. Vista de una entrada y comentarios ---------- */
+
+.entrada {
+  padding-top: 32px;
+  padding-bottom: 64px;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: 32px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.entrada__titulo {
+  margin: 8px 0 12px;
+  font-size: 2.8rem;
+}
+
+.entrada__meta {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.entrada__contenido {
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.entrada__contenido h2 {
+  margin: 36px 0 12px;
+  font-size: 1.6rem;
+}
+
+/* Código dentro de un párrafo */
+.entrada__contenido p code,
+.entrada__contenido li code {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--superficie-2);
+}
+
+/* Bloques de código */
+.entrada__contenido pre {
+  padding: 18px 20px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #1c1915;
+  color: #f4ede2;
+}
+
+.entrada__contenido blockquote {
+  margin: 28px 0;
+  padding: 14px 20px;
+  border-left: 4px solid var(--acento);
+  background: var(--acento-suave);
+  font-style: italic;
+}
+
+.entrada__etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 40px 0 20px;
+}
+
+.pildora {
+  padding: 2px 10px;
+  font-size: 0.85rem;
+  border: 1px solid var(--acento);
+  border-radius: 999px;
+  background: var(--acento-suave);
+  color: var(--acento);
+}
+
+.acciones-entrada {
+  display: flex;
+  gap: 10px;
+  padding: 20px 0;
+  border-top: 1px solid var(--borde);
+  border-bottom: 1px solid var(--borde);
+}
+
+.comentarios {
+  margin-top: 48px;
+}
+
+.comentarios__n {
+  color: var(--texto-suave);
+  font-weight: normal;
+}
+
+.comentarios__lista {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+}
+
+.comentarios__vacio {
+  padding: 20px;
+  color: var(--texto-suave);
+  background: var(--superficie-2);
+  border-radius: 8px;
+}
+
+.comentario {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.comentario__avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--acento-suave);
+  color: var(--acento);
+  font-weight: bold;
+}
+
+.comentario__cabecera {
+  margin: 0;
+}
+
+.comentario__cabecera span {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.comentario__texto {
+  margin: 4px 0;
+  word-break: break-word;
+}
+
+.formulario--comentario {
+  padding: 24px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--superficie);
+}
+
+.formulario--comentario h3 {
+  margin: 0;
+}
+
+
+/* ---------- 8. Ventana de nueva entrada, avisos y botón de subir ---------- */
+
+.dialogo {
+  width: 640px;
+  max-width: 95%;
+  padding: 24px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+/* Fondo oscuro detrás de la ventana */
+.dialogo::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dialogo__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialogo__cabecera h2 {
+  margin: 0;
+}
+
+.dialogo__pie {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Aviso que aparece abajo durante unos segundos */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--texto);
+  color: var(--fondo);
+  box-shadow: var(--sombra);
+  animation: aparecer 0.3s;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Botón de volver arriba: oculto hasta que JavaScript le pone la clase "visible" */
+.btn-arriba {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--acento);
+  color: var(--texto-boton);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: none;
+}
+
+.btn-arriba.visible {
+  display: block;
+}
+
+
+/* ---------- 9. Páginas "Sobre mí" y "Contacto" ---------- */
+
+.pagina {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+.pagina__cabecera {
+  margin-bottom: 40px;
+}
+
+.pagina__cabecera h1 {
+  margin: 6px 0 12px;
+  font-size: 3rem;
+}
+
+.pagina__cabecera p {
+  max-width: 600px;
+  margin: 0;
+  font-size: 1.12rem;
+  color: var(--texto-suave);
+}
+
+.separado {
+  margin-top: 40px;
+}
+
+/* Dos columnas: texto y barra lateral */
+.bio {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+}
+
+.bio h2 {
+  margin-top: 0;
+}
+
+.caja {
+  padding: 24px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  margin-bottom: 20px;
+}
+
+/* Barras de habilidades */
+.habilidades {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.habilidades li {
+  margin-bottom: 16px;
+}
+
+.habilidad__fila {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 0.93rem;
+}
+
+.habilidad__barra {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--superficie-2);
+  overflow: hidden;
+}
+
+.habilidad__relleno {
+  height: 100%;
+  width: 0; /* JavaScript le pone la anchura final */
+  background: linear-gradient(90deg, var(--acento), var(--cat-practices));
+  transition: width 1s;
+}
+
+/* Línea de tiempo */
+.linea-tiempo {
+  list-style: none;
+  margin: 0;
+  padding-left: 24px;
+  border-left: 2px solid var(--borde);
+}
+
+.linea-tiempo li {
+  position: relative;
+  padding-bottom: 24px;
+}
+
+/* Puntito de cada fecha */
+.linea-tiempo li::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 3px solid var(--acento);
+  background: var(--fondo);
+}
+
+.linea-tiempo time {
+  font-family: var(--fuente-codigo);
+  font-size: 0.82rem;
+  color: var(--acento);
+}
+
+.linea-tiempo h3 {
+  margin: 2px 0 4px;
+}
+
+.linea-tiempo p {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.contacto {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Preguntas frecuentes */
+.faq details {
+  padding: 14px 0;
+  border-top: 1px solid var(--borde);
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.faq p {
+  margin: 8px 0 0;
+  color: var(--texto-suave);
+}
+
+/* Mensaje de envío correcto */
+.exito {
+  padding: 24px;
+  border: 1px solid var(--ok);
+  border-radius: var(--radio);
+  background: var(--ok-suave);
+}
+
+.exito h2 {
+  margin-top: 0;
+  color: var(--ok);
+}
+
+.exito dt {
+  font-weight: bold;
+}
+
+.exito dd {
+  margin: 0 0 10px;
+  word-break: break-word;
+}
+
+
+/* ---------- 10. Pie de página ---------- */
+
+.pie {
+  margin-top: 32px;
+  padding-top: 40px;
+  border-top: 1px solid var(--borde);
+  background: var(--superficie-2);
+}
+
+.pie__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo--pie {
+  font-size: 1.1rem;
+}
+
+.pie__texto {
+  max-width: 400px;
+  color: var(--texto-suave);
+  font-size: 0.92rem;
+}
+
+.pie__enlaces {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pie__enlaces a {
+  color: var(--texto-suave);
+  text-decoration: none;
+}
+
+.pie__enlaces a:hover {
+  color: var(--acento);
+}
+
+.pie__legal {
+  margin-top: 32px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--borde);
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+
+/* ---------- 11. Móvil (responsive) ---------- */
+
+/* Tablets y pantallas medianas: todo en una columna */
+@media (max-width: 960px) {
+  .disposicion,
+  .bio,
+  .contacto,
+  .portada__rejilla {
+    grid-template-columns: 1fr;
+  }
+
+  .lateral {
+    position: static;
+  }
+
+  .ventana-codigo {
+    display: none;
+  }
+}
+
+/* Móviles */
+@media (max-width: 760px) {
+  .cabecera__fila {
+    gap: 10px;
+  }
+
+  .logo em {
+    display: none;
+  }
+
+  /* Mostramos el botón del menú y ocultamos el menú hasta que se pulse */
+  .btn-menu {
+    display: inline-block;
+  }
+
+  .navegacion {
+    order: 3; /* el botón del menú pasa a la derecha del todo */
+  }
+
+  .cabecera__acciones {
+    order: 2;
+  }
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    padding: 12px 20px;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .menu.abierto {
+    display: flex;
+  }
+
+  /* En el botón "Nueva entrada" solo se ve el + */
+  #btn-nueva span {
+    display: none;
+  }
+
+  .portada {
+    padding: 40px 0 32px;
+  }
+
+  .portada__titulo {
+    font-size: 2.3rem;
+  }
+
+  .portada__datos {
+    gap: 24px;
+  }
+
+  .entrada__titulo,
+  .pagina__cabecera h1 {
+    font-size: 2rem;
+  }
+
+  .campo-doble {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones-entrada {
+    flex-wrap: wrap;
+  }
+}
+
+/* Si el usuario ha pedido menos animaciones en su sistema, las quitamos */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

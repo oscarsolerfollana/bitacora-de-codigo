@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ponte en contacto con el autor de Bitácora de Código.">
+  <title>Contacto — Bitácora de Código</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Ponemos el modo oscuro antes de que se vea la página, para que no haya un destello blanco -->
+  <script>
+    if (localStorage.getItem("tema") === "oscuro") {
+      document.documentElement.setAttribute("data-theme", "oscuro");
+    }
+  </script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="cabecera">
+    <div class="contenedor cabecera__fila">
+      <a href="index.html" class="logo">
+        <span class="logo__marca">{ }</span>
+        <span class="logo__texto">Bitácora <em>de Código</em></span>
+      </a>
+
+      <nav class="navegacion">
+        <button class="btn-icono btn-menu" id="btn-menu" type="button" aria-label="Abrir menú">☰</button>
+        <ul class="menu" id="menu-principal">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="contacto.html" class="actual">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="cabecera__acciones">
+        <button class="btn-icono" id="btn-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">
+          <span class="icono-luna">☾</span>
+          <span class="icono-sol">☀</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido" class="pagina contenedor">
+    <header class="pagina__cabecera">
+      <p class="portada__antetitulo">Contacto</p>
+      <h1>Escríbeme</h1>
+      <p>¿Una duda, una corrección o una idea para una entrada? Rellena el formulario y te responderé lo antes posible.</p>
+    </header>
+
+    <div class="contacto">
+      <section class="caja">
+        <h2 class="oculto">Formulario de contacto</h2>
+        <form id="form-contacto" class="formulario" novalidate>
+          <div class="campo-doble">
+            <div class="campo">
+              <label for="nombre">Nombre *</label>
+              <input id="nombre" type="text">
+              <p class="campo__error" id="nombre-error"></p>
+            </div>
+            <div class="campo">
+              <label for="email">Correo electrónico *</label>
+              <input id="email" type="email">
+              <p class="campo__error" id="email-error"></p>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="motivo">Motivo *</label>
+            <select id="motivo" class="select">
+              <option value="">Elige un motivo…</option>
+              <option value="duda">Duda sobre una entrada</option>
+              <option value="error">He encontrado un error</option>
+              <option value="idea">Idea para una entrada</option>
+              <option value="otro">Otro</option>
+            </select>
+            <p class="campo__error" id="motivo-error"></p>
+          </div>
+          <div class="campo">
+            <label for="mensaje">Mensaje * <span class="contador" id="contador-mensaje">0/1000</span></label>
+            <textarea id="mensaje" rows="6" maxlength="1000"></textarea>
+            <p class="campo__error" id="mensaje-error"></p>
+          </div>
+          <div class="campo">
+            <label class="casilla" for="privacidad">
+              <input id="privacidad" type="checkbox">
+              <span>Acepto que mis datos se usen solo para responder a este mensaje. *</span>
+            </label>
+            <p class="campo__error" id="privacidad-error"></p>
+          </div>
+          <div>
+            <button class="btn btn--primario" type="submit">Enviar mensaje</button>
+          </div>
+        </form>
+        <div id="exito" class="exito" hidden></div>
+      </section>
+
+      <aside>
+        <section class="caja faq">
+          <h2>Preguntas frecuentes</h2>
+          <details>
+            <summary>¿Usas algún framework?</summary>
+            <p>No. Todo el blog está hecho con HTML, CSS y JavaScript puro, sin librerías externas.</p>
+          </details>
+          <details>
+            <summary>¿Dónde se guardan los comentarios?</summary>
+            <p>En el localStorage de tu navegador. No hay servidor, así que solo los ves tú.</p>
+          </details>
+          <details>
+            <summary>¿Este formulario envía un correo de verdad?</summary>
+            <p>No: al no haber backend, el envío se simula. El mensaje se valida y se muestra un resumen.</p>
+          </details>
+          <details>
+            <summary>¿Puedo reutilizar el código?</summary>
+            <p>Claro, es un proyecto de aprendizaje. Si te sirve, cuéntamelo.</p>
+          </details>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie">
+    <div class="contenedor pie__fila">
+      <div>
+        <p class="logo logo--pie"><span class="logo__marca">{ }</span> Bitácora <em>de Código</em></p>
+        <p class="pie__texto">Hecho a mano con HTML, CSS y JavaScript puro. Sin frameworks, sin librerías.</p>
+      </div>
+      <ul class="pie__enlaces">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre-mi.html">Sobre mí</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <p class="contenedor pie__legal">© <span id="anio"></span> Óscar Soler · Actividad 1 · Creación de un blog</p>
+  </footer>
+
+  <button class="btn-arriba" id="btn-arriba" type="button" aria-label="Volver arriba">↑</button>
+
+  <script src="js/common.js"></script>
+  <script src="js/paginas.js"></script>
+</body>
+</html>

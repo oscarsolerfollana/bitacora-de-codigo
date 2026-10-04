@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quién escribe Bitácora de Código y qué está aprendiendo.">
+  <title>Sobre mí — Bitácora de Código</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Ponemos el modo oscuro antes de que se vea la página, para que no haya un destello blanco -->
+  <script>
+    if (localStorage.getItem("tema") === "oscuro") {
+      document.documentElement.setAttribute("data-theme", "oscuro");
+    }
+  </script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="cabecera">
+    <div class="contenedor cabecera__fila">
+      <a href="index.html" class="logo">
+        <span class="logo__marca">{ }</span>
+        <span class="logo__texto">Bitácora <em>de Código</em></span>
+      </a>
+
+      <nav class="navegacion">
+        <button class="btn-icono btn-menu" id="btn-menu" type="button" aria-label="Abrir menú">☰</button>
+        <ul class="menu" id="menu-principal">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="sobre-mi.html" class="actual">Sobre mí</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="cabecera__acciones">
+        <button class="btn-icono" id="btn-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">
+          <span class="icono-luna">☾</span>
+          <span class="icono-sol">☀</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido" class="pagina contenedor">
+    <header class="pagina__cabecera">
+      <p class="portada__antetitulo">Sobre mí</p>
+      <h1>Hola, soy Óscar 👋</h1>
+      <p>Estudio Ingeniería Informática y este blog es mi cuaderno de apuntes público sobre desarrollo web.</p>
+    </header>
+
+    <div class="bio">
+      <section class="bio__texto">
+        <h2>Por qué escribo</h2>
+        <p>Empecé a programar resolviendo ejercicios de clase, pero lo que de verdad me enganchó fue ver algo que había escrito aparecer en el navegador. Desde entonces intento entender cómo funcionan las cosas por debajo, antes de usar herramientas que lo hagan por mí.</p>
+        <p>Por eso este blog está hecho <strong>a mano, con HTML, CSS y JavaScript puro</strong>: sin frameworks ni generadores de sitios. Cada funcionalidad que ves (el buscador, los filtros, los comentarios o el modo oscuro) está programada desde cero, y en las entradas explico cómo.</p>
+        <p>Escribir me obliga a ordenar lo que aprendo. Si además le sirve a alguien más, mejor todavía.</p>
+
+        <h2 class="separado">Mi camino hasta aquí</h2>
+        <ol class="linea-tiempo">
+          <li><time>2024</time><h3>Primeras líneas de código</h3><p>Programación básica: variables, bucles y mucha paciencia.</p></li>
+          <li><time>2025</time><h3>Empiezo Ingeniería Informática</h3><p>Fundamentos de programación, estructuras de datos y bases de datos.</p></li>
+          <li><time>2026</time><h3>Desarrollo web</h3><p>HTML, CSS y JavaScript. Nace este blog como proyecto de la asignatura.</p></li>
+          <li><time>Próximamente</time><h3>Backend y APIs</h3><p>Conectar el blog a un servidor real y a una base de datos.</p></li>
+        </ol>
+      </section>
+
+      <aside>
+        <section class="caja">
+          <h2>Lo que estoy aprendiendo</h2>
+          <ul class="habilidades" id="habilidades">
+            <li><div class="habilidad__fila"><span>HTML semántico</span><span>85 %</span></div><div class="habilidad__barra"><div class="habilidad__relleno" data-valor="85"></div></div></li>
+            <li><div class="habilidad__fila"><span>CSS (Flexbox, Grid)</span><span>75 %</span></div><div class="habilidad__barra"><div class="habilidad__relleno" data-valor="75"></div></div></li>
+            <li><div class="habilidad__fila"><span>JavaScript</span><span>65 %</span></div><div class="habilidad__barra"><div class="habilidad__relleno" data-valor="65"></div></div></li>
+            <li><div class="habilidad__fila"><span>Git y GitHub</span><span>60 %</span></div><div class="habilidad__barra"><div class="habilidad__relleno" data-valor="60"></div></div></li>
+            <li><div class="habilidad__fila"><span>Accesibilidad</span><span>55 %</span></div><div class="habilidad__barra"><div class="habilidad__relleno" data-valor="55"></div></div></li>
+          </ul>
+        </section>
+        <section class="caja">
+          <h2>¿Hablamos?</h2>
+          <p>Si tienes una duda sobre alguna entrada o una idea para la siguiente, escríbeme.</p>
+          <a class="btn btn--primario" href="contacto.html">Ir a contacto</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie">
+    <div class="contenedor pie__fila">
+      <div>
+        <p class="logo logo--pie"><span class="logo__marca">{ }</span> Bitácora <em>de Código</em></p>
+        <p class="pie__texto">Hecho a mano con HTML, CSS y JavaScript puro. Sin frameworks, sin librerías.</p>
+      </div>
+      <ul class="pie__enlaces">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre-mi.html">Sobre mí</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <p class="contenedor pie__legal">© <span id="anio"></span> Óscar Soler · Actividad 1 · Creación de un blog</p>
+  </footer>
+
+  <button class="btn-arriba" id="btn-arriba" type="button" aria-label="Volver arriba">↑</button>
+
+  <script src="js/common.js"></script>
+  <script src="js/paginas.js"></script>
+</body>
+</html>

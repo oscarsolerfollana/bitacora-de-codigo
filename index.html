@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bitácora de Código: un blog sobre desarrollo web con HTML, CSS y JavaScript.">
+  <title>Bitácora de Código — Blog de desarrollo web</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Ponemos el modo oscuro antes de que se vea la página, para que no haya un destello blanco -->
+  <script>
+    if (localStorage.getItem("tema") === "oscuro") {
+      document.documentElement.setAttribute("data-theme", "oscuro");
+    }
+  </script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <div class="progreso-lectura" id="progreso-lectura"></div>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="cabecera">
+    <div class="contenedor cabecera__fila">
+      <a href="index.html" class="logo">
+        <span class="logo__marca">{ }</span>
+        <span class="logo__texto">Bitácora <em>de Código</em></span>
+      </a>
+
+      <nav class="navegacion">
+        <button class="btn-icono btn-menu" id="btn-menu" type="button" aria-label="Abrir menú">☰</button>
+        <ul class="menu" id="menu-principal">
+          <li><a href="index.html" class="actual">Inicio</a></li>
+          <li><a href="sobre-mi.html">Sobre mí</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="cabecera__acciones">
+        <button class="btn btn--primario" id="btn-nueva" type="button">+ <span>Nueva entrada</span></button>
+        <button class="btn-icono" id="btn-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">
+          <span class="icono-luna">☾</span>
+          <span class="icono-sol">☀</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===== VISTA 1: LISTADO DE ENTRADAS ===== -->
+    <section id="vista-lista">
+      <div class="portada">
+        <div class="contenedor portada__rejilla">
+          <div>
+            <p class="portada__antetitulo">Blog de desarrollo web</p>
+            <h1 class="portada__titulo">Apuntes de alguien que aprende a construir la web <span class="subrayado">desde cero</span>.</h1>
+            <p class="portada__texto">HTML, CSS y JavaScript sin frameworks: lo que voy aprendiendo, explicado con ejemplos que puedes probar en este mismo blog.</p>
+            <div class="portada__datos">
+              <div><strong id="total-entradas">0</strong> Entradas</div>
+              <div><strong id="total-minutos">0</strong> Minutos de lectura</div>
+              <div><strong id="total-comentarios">0</strong> Comentarios</div>
+            </div>
+          </div>
+
+          <!-- Dibujo decorativo de una ventana de código -->
+          <div class="ventana-codigo">
+            <div class="ventana-codigo__barra"><i></i><i></i><i></i></div>
+<pre><span class="c">// bitacora.js</span>
+<span class="k">const</span> blog = {
+  autor: <span class="s">"Óscar"</span>,
+  stack: [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JS"</span>],
+  frameworks: <span class="k">null</span>,
+  aprendiendo: <span class="k">true</span>
+};
+
+blog.<span class="k">publicar</span>(<span class="s">"nueva entrada"</span>);<span class="cursor"></span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="contenedor disposicion">
+        <div>
+          <!-- Buscador, categorías y orden -->
+          <div class="herramientas">
+            <div class="buscador">
+              <label for="buscar" class="oculto">Buscar entradas</label>
+              <input type="search" id="buscar" placeholder="🔍  Buscar por título, resumen o etiqueta…">
+            </div>
+            <div class="herramientas__fila">
+              <div class="chips">
+                <button class="chip activo" type="button" data-categoria="todas">Todas</button>
+                <button class="chip" type="button" data-categoria="html">HTML</button>
+                <button class="chip" type="button" data-categoria="css">CSS</button>
+                <button class="chip" type="button" data-categoria="js">JavaScript</button>
+                <button class="chip" type="button" data-categoria="herramientas">Herramientas</button>
+                <button class="chip" type="button" data-categoria="practicas">Buenas prácticas</button>
+              </div>
+              <label for="orden" class="oculto">Ordenar</label>
+              <select id="orden" class="select">
+                <option value="recientes">Más recientes</option>
+                <option value="antiguas">Más antiguas</option>
+                <option value="populares">Más populares</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="resultado" id="resultado"></p>
+          <div class="rejilla" id="rejilla"></div>
+          <div class="vacio" id="vacio" hidden>
+            <p class="vacio__titulo">No hay entradas que coincidan.</p>
+            <p>Prueba con otra búsqueda o <button class="enlace" id="btn-limpiar" type="button">quita los filtros</button>.</p>
+          </div>
+        </div>
+
+        <!-- Barra lateral -->
+        <aside class="lateral">
+          <section class="tarjeta-lateral autor">
+            <div class="autor__avatar">ÓS</div>
+            <div>
+              <h2 class="tarjeta-lateral__titulo">Hola, soy Óscar</h2>
+              <p>Estudiante de Ingeniería Informática. Aquí documento lo que aprendo sobre desarrollo web.</p>
+              <a href="sobre-mi.html" class="enlace-flecha">Conóceme →</a>
+            </div>
+          </section>
+          <section class="tarjeta-lateral">
+            <h2 class="tarjeta-lateral__titulo">Más populares</h2>
+            <ol class="populares" id="populares"></ol>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== VISTA 2: UNA ENTRADA (se rellena desde app.js) ===== -->
+    <section id="vista-entrada" hidden></section>
+  </main>
+
+  <!-- ===== VENTANA PARA ESCRIBIR UNA NUEVA ENTRADA ===== -->
+  <dialog class="dialogo" id="dialogo-nueva">
+    <form id="form-nueva" class="formulario" novalidate>
+      <div class="dialogo__cabecera">
+        <h2>Escribir una nueva entrada</h2>
+        <button class="btn-icono" id="btn-cerrar" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <p class="formulario__ayuda">Se guardará en tu navegador. Los campos con * son obligatorios.</p>
+
+      <div class="campo">
+        <label for="n-titulo">Título *</label>
+        <input id="n-titulo" type="text" maxlength="90">
+        <p class="campo__error" id="n-titulo-error"></p>
+      </div>
+      <div class="campo-doble">
+        <div class="campo">
+          <label for="n-categoria">Categoría *</label>
+          <select id="n-categoria" class="select">
+            <option value="">Elige una…</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="js">JavaScript</option>
+            <option value="herramientas">Herramientas</option>
+            <option value="practicas">Buenas prácticas</option>
+          </select>
+          <p class="campo__error" id="n-categoria-error"></p>
+        </div>
+        <div class="campo">
+          <label for="n-etiquetas">Etiquetas</label>
+          <input id="n-etiquetas" type="text" placeholder="css, diseño, consejos">
+          <p class="campo__ayuda">Separadas por comas.</p>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="n-resumen">Resumen *</label>
+        <input id="n-resumen" type="text" maxlength="200">
+        <p class="campo__error" id="n-resumen-error"></p>
+      </div>
+      <div class="campo">
+        <label for="n-contenido">Contenido * <span class="contador" id="n-contador">0 palabras</span></label>
+        <textarea id="n-contenido" rows="8" placeholder="Separa los párrafos con una línea en blanco."></textarea>
+        <p class="campo__error" id="n-contenido-error"></p>
+      </div>
+      <div class="dialogo__pie">
+        <button class="btn btn--secundario" id="btn-cancelar" type="button">Cancelar</button>
+        <button class="btn btn--primario" type="submit">Publicar entrada</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie">
+    <div class="contenedor pie__fila">
+      <div>
+        <p class="logo logo--pie"><span class="logo__marca">{ }</span> Bitácora <em>de Código</em></p>
+        <p class="pie__texto">Hecho a mano con HTML, CSS y JavaScript puro. Sin frameworks, sin librerías.</p>
+      </div>
+      <ul class="pie__enlaces">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre-mi.html">Sobre mí</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <p class="contenedor pie__legal">© <span id="anio"></span> Óscar Soler · Actividad 1 · Creación de un blog</p>
+  </footer>
+
+  <button class="btn-arriba" id="btn-arriba" type="button" aria-label="Volver arriba">↑</button>
+
+  <script src="js/common.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
