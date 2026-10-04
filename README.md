@@ -4,7 +4,7 @@ Blog personal sobre desarrollo web hecho con **HTML, CSS y JavaScript puro**, si
 
 ## Cómo verlo
 
-- **En línea:** https://TU-USUARIO.github.io/bitacora-de-codigo/
+- **En línea:** https://oscarsolerfollana.github.io/bitacora-de-codigo/
 - **En local:** descarga la carpeta y abre `index.html` con doble clic. No necesita servidor ni instalar nada.
 
 ## Funcionalidades
@@ -34,4 +34,4 @@ js/paginas.js     Lógica de «Sobre mí» y «Contacto»
 
 1. Crea un repositorio en GitHub (por ejemplo `bitacora-de-codigo`) y sube estos archivos a la raíz.
 2. Ve a **Settings → Pages**, elige **Deploy from a branch**, rama `main`, carpeta `/ (root)` y guarda.
-3. En uno o dos minutos la web estará en `https://TU-USUARIO.github.io/bitacora-de-codigo/`.
+3. En uno o dos minutos la web estará en `https://oscarsolerfollana.github.io/bitacora-de-codigo/`.
